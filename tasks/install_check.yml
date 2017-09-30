@@ -1,0 +1,20 @@
+---
+- name: Check if python27c is already installed
+  stat: path=/usr/bin/python27c
+  register: python27c_version
+
+- name: Check if pip27c is already installed
+  stat: path=/usr/bin/pip27c
+  register: pip27c_version
+
+- name: Check if python35c is already installed
+  stat: path=/usr/bin/python35c
+  register: python35c_version
+
+- name: Check if pip35c is already installed
+  stat: path=/usr/bin/pip35c
+  register: pip35c_version
+
+- name: Check if pyvenv is already installed
+  stat: path=/usr/bin/pyvenv
+  register: pyvenv_version

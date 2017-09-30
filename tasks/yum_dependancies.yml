@@ -1,0 +1,11 @@
+- name: Install YUM Dependancies
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "gcc" 
+    - "wget" 
+    - "zlib" 
+    - "zlib-devel" 
+    - "openssl" 
+    - "openssl-devel"

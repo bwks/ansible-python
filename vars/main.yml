@@ -1,0 +1,7 @@
+---
+# vars file for ansible-python
+working_dir: "/usr/src"
+install_dir: "/usr/local"
+python_versions:
+  - {version: 3.6, release: 3.6.2, py_link: python3.6, pip_link: pip3.6}
+  - {version: 2.7, release: 2.7.12, py_link: python2.7, pip_link: pip2.7}

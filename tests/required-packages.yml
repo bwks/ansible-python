@@ -1,0 +1,11 @@
+- name: Install required packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "gcc" 
+    - "wget" 
+    - "zlib"
+    - "zlib-devel" 
+    - "openssl"
+    - "openssl-devel"

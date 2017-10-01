@@ -5,7 +5,7 @@
 
 - name: Check if "{{ python_versions.python3.pip_link }}" is already installed
   stat: 
-    path: "{{ install_dir}}/bin/{{ python_versions.python3.pip_link }}"
+    path: "/usr/bin/{{ python_versions.python3.pip_link }}"
   register: pip3_version
 
 - name: get pip
@@ -20,10 +20,10 @@
 
 - name: Create symlink to pip3 versions
   file:
-    src: "{{ install_dir }}/bin/{{ python_versions.python3.pip_link }}"
-    dest: "/usr/bin/{{ python_versions.python3.pip_name }}"
+    src: "{{ install_dir }}/bin/{{ item.value.pip_link }}"
+    dest: "/usr/bin/{{ item.value.pip_name }}"
     owner: root
     group: root
     state: link
-  when: not {{ python_versions.python3.pip_name }}_version.stat.exists
-
+  when: not {{ item.value.pip_name }}_version.stat.exists
+  with_dict: "{{ python_versions }}"

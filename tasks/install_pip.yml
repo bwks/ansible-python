@@ -14,14 +14,14 @@
     dest: "{{ temp_dir }}"
   when: not pip2_version.stat.exists or not pip3_version.stat.exists
 
-- name: Install pip for python2.7
-  shell: "{{ install_dir }}/bin/{{ python_versions.python2.version }} {{ temp_dir }}/get-pip.py"
+- name: Install pip for {{ python_versions.python2.py_link }}
+  shell: "{{ install_dir }}/bin/{{ python_versions.python2.py_link }} {{ temp_dir }}/get-pip.py"
   when: not pip2_version.stat.exists
 
 - name: Create symlink to pip3 versions
   file:
-    src: "{{ install_dir }}/bin/pip{{ python_versions.python3.version }}"
-    dest: "/usr/bin/{{ python_versions.python3.pip_link }}"
+    src: "{{ install_dir }}/bin/{{ python_versions.python3.pip_link }}"
+    dest: "/usr/bin/{{ python_versions.python3.pip_name }}"
     owner: root
     group: root
     state: link

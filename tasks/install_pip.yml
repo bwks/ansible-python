@@ -20,11 +20,10 @@
 
 - name: Create symlink to pip3 versions
   file:
-    src: "{{ install_dir }}/bin/pip{{ item.value.version }}"
-    dest: "/usr/bin/{{ item.value.pip_link }}"
+    src: "{{ install_dir }}/bin/pip{{ python_versions.python3.version }}"
+    dest: "/usr/bin/{{ python_versions.python3.pip_link }}"
     owner: root
     group: root
     state: link
-  when: not {{ item.value.pip_name }}_version.stat.exists
-  with_dict: "{{ python_versions.python3 }}"
+  when: not {{ python_versions.python3.pip_name }}_version.stat.exists
 

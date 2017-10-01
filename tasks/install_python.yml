@@ -21,18 +21,19 @@
     dest: "{{ working_dir }}"
     creates: "{{ working_dir }}/Python-{{ item.value.release }}"
     copy: False
+  when: not {{ item.value.py_name }}_version.stat.exists
   with_dict: "{{ python_versions }}"
 
 - name: Build python
   shell: "cd {{ working_dir }}/Python-{{ item.value.release }}  && ./configure --prefix={{ install_dir }} && make altinstall"
+  when: not {{ item.value.py_name }}_version.stat.exists
   with_dict: "{{ python_versions }}"
 
 - name: Create symlink to python3 version
   file: 
-    src: "{{ install_dir }}/bin/python{{ item.vaule.version }}"
-    dest: "/usr/bin/{{ item.vaule.py_link }}"
+    src: "{{ install_dir }}/bin/python{{ python_versions.python3.version }}"
+    dest: "/usr/bin/{{ python_versions.python3.py_link }}"
     owner: root
     group: root
     state: link
-  with_dict: "{{ python_versions.python3 }}"
 

@@ -1,0 +1,15 @@
+- name: Download python
+  get_url: 
+    url: "https://www.python.org/ftp/python/{{ item.release }}/Python-{{ item.release }}.tar.xz"
+    dest: "{{ working_dir }}"
+  with_items:
+    - "{{ python_versions }}"
+
+- name: Expand python archive archive.
+  unarchive: 
+    src: "{{ working_dir }}/Python-{{ item.release }}.tar.xz"
+    dest: "{{ working_dir }}"
+    creates: "{{ working_dir }}/Python-{{ item.release }}"
+    copy: False
+  with_items:
+    - "{{ python_versions }}"

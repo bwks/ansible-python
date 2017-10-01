@@ -19,3 +19,30 @@
   with_items:
     - "{{ python_versions }}"
 
+- name: Create symlink to python version
+  file: 
+    src: "{{ install_dir }}/bin/python{{ item.version }}"
+    dest: "/usr/bin/{{ item.py_link }}"
+    owner: root
+    group: root
+    state: link
+  with_items:
+    - "{{ python_versions }}"
+
+- name: get pip
+  get_url: 
+    url: "{{ pip_url}}"
+    dest: "{{ working_dir }}"
+
+- name: Install pip for python2.7
+  shell: "python2.7 {{ working_dir }}/get-pip.py"
+
+- name: Create symlink to pip versions
+  file: 
+    src: "{{ install_dir }}/bin/pip{{ item.version }}"
+    dest: "/usr/bin/{{ item.pip_link }}"
+    owner: root
+    group: root
+    state: link
+  with_items:
+    - "{{ python_versions }}"

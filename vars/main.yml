@@ -4,6 +4,8 @@ working_dir: "/usr/src"
 
 install_dir: "/usr/local"
 
+pip_url: "https://bootstrap.pypa.io/get-pip.py"
+
 python_versions:
   - version: 3.6
     release: 3.6.2

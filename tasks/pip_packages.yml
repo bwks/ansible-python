@@ -1,0 +1,7 @@
+- name: Install PIP packages
+  pip:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "pip"
+    - "setuptools"

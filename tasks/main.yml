@@ -2,4 +2,5 @@
 # tasks file for ansible-python
 
 - include: yum_dependancies.yml
-- include: install_python.yml 
+- include: install_python.yml
+- include: pip_packages.yml 

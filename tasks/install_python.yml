@@ -13,3 +13,9 @@
     copy: False
   with_items:
     - "{{ python_versions }}"
+
+- name: Build python
+  shell: "cd {{ working_dir }}/Python-{{ item.release }}  && ./configure --prefix={{ install_dir }} && make altinstall"
+  with_items:
+    - "{{ python_versions }}"
+

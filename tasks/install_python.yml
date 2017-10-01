@@ -13,8 +13,7 @@
     url: "https://www.python.org/ftp/python/{{ item.value.release }}/Python-{{ item.value.release }}.tar.xz"
     dest: "{{ working_dir }}"
   when: not {{ item.value.py_link }}_version.stat.exists
-  with_dict:
-    - "{{ python_versions }}"
+  with_dict: "{{ python_versions }}"
 
 - name: Expand python archive archive.
   unarchive: 
@@ -22,13 +21,11 @@
     dest: "{{ working_dir }}"
     creates: "{{ working_dir }}/Python-{{ item.value.release }}"
     copy: False
-  with_dict:
-    - "{{ python_versions }}"
+  with_dict: "{{ python_versions }}"
 
 - name: Build python
   shell: "cd {{ working_dir }}/Python-{{ item.value.release }}  && ./configure --prefix={{ install_dir }} && make altinstall"
-  with_dict:
-    - "{{ python_versions }}"
+  with_dict: "{{ python_versions }}"
 
 - name: Create symlink to python3 version
   file: 
@@ -37,6 +34,5 @@
     owner: root
     group: root
     state: link
-  with_dict:
-    - "{{ python_versions.python3 }}"
+  with_dict: "{{ python_versions.python3 }}"
 

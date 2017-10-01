@@ -26,6 +26,5 @@
     group: root
     state: link
   when: not {{ item.value.pip_name }}_version.stat.exists
-  with_dict:
-    - "{{ python_versions.python3 }}"
+  with_dict: "{{ python_versions.python3 }}"
 

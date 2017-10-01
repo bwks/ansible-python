@@ -12,7 +12,7 @@
   get_url: 
     url: "https://www.python.org/ftp/python/{{ item.value.release }}/Python-{{ item.value.release }}.tar.xz"
     dest: "{{ working_dir }}"
-  when: not {{ item.value.py_link }}_version.stat.exists
+  when: not {{ item.value.py_name }}_version.stat.exists
   with_dict: "{{ python_versions }}"
 
 - name: Expand python archive archive.

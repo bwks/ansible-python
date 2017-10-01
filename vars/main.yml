@@ -13,13 +13,15 @@ python_versions:
     version: 3.6
     release: 3.6.2
     py_link: python3.6
+    py_name: python3
     pip_link: pip3.6
     pip_name: pip3
 
   python2:
     version: 2.7
     release: 2.7.13 
-    py_link: python2.7 
+    py_link: python2.7
+    py_name: python2 
     pip_link: pip2.7
     pip_name: pip2
 

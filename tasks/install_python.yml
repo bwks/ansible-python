@@ -1,48 +1,42 @@
+- name: Check if "{{ python_versions.python2.version }}" version is already installed
+  stat: 
+    path: "{{ install_dir }}/bin/{{ python_versions.python2.py_link }}"
+  register: python2_version
+
+- name: Check if "{{ python_versions.python3.version }}" is already installed
+  stat: 
+    path: "{{ install_dir}}/bin/{{ python_versions.python3.py_link }}"
+  register: python3_version
+
 - name: Download python
   get_url: 
-    url: "https://www.python.org/ftp/python/{{ item.release }}/Python-{{ item.release }}.tar.xz"
+    url: "https://www.python.org/ftp/python/{{ item.value.release }}/Python-{{ item.value.release }}.tar.xz"
     dest: "{{ working_dir }}"
-  with_items:
+  when: not {{ item.value.py_link }}_version.stat.exists
+  with_dict:
     - "{{ python_versions }}"
 
 - name: Expand python archive archive.
   unarchive: 
-    src: "{{ working_dir }}/Python-{{ item.release }}.tar.xz"
+    src: "{{ working_dir }}/Python-{{ item.value.release }}.tar.xz"
     dest: "{{ working_dir }}"
-    creates: "{{ working_dir }}/Python-{{ item.release }}"
+    creates: "{{ working_dir }}/Python-{{ item.value.release }}"
     copy: False
-  with_items:
+  with_dict:
     - "{{ python_versions }}"
 
 - name: Build python
-  shell: "cd {{ working_dir }}/Python-{{ item.release }}  && ./configure --prefix={{ install_dir }} && make altinstall"
-  with_items:
+  shell: "cd {{ working_dir }}/Python-{{ item.value.release }}  && ./configure --prefix={{ install_dir }} && make altinstall"
+  with_dict:
     - "{{ python_versions }}"
 
-- name: Create symlink to python version
+- name: Create symlink to python3 version
   file: 
-    src: "{{ install_dir }}/bin/python{{ item.version }}"
-    dest: "/usr/bin/{{ item.py_link }}"
+    src: "{{ install_dir }}/bin/python{{ item.vaule.version }}"
+    dest: "/usr/bin/{{ item.vaule.py_link }}"
     owner: root
     group: root
     state: link
-  with_items:
-    - "{{ python_versions }}"
+  with_dict:
+    - "{{ python_versions.python3 }}"
 
-- name: get pip
-  get_url: 
-    url: "{{ pip_url}}"
-    dest: "{{ working_dir }}"
-
-- name: Install pip for python2.7
-  shell: "python2.7 {{ working_dir }}/get-pip.py"
-
-- name: Create symlink to pip versions
-  file: 
-    src: "{{ install_dir }}/bin/pip{{ item.version }}"
-    dest: "/usr/bin/{{ item.pip_link }}"
-    owner: root
-    group: root
-    state: link
-  with_items:
-    - "{{ python_versions }}"

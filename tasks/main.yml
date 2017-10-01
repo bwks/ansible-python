@@ -3,4 +3,5 @@
 
 - include: yum_dependancies.yml
 - include: install_python.yml
+- include: install_pip.yml
 - include: pip_packages.yml 

@@ -1,0 +1,31 @@
+- name: Check if "{{ python_versions.python2.pip_link }}" is already installed
+  stat: 
+    path: "/usr/bin/{{ python_versions.python2.pip_link }}"
+  register: pip2_version
+
+- name: Check if "{{ python_versions.python3.pip_link }}" is already installed
+  stat: 
+    path: "{{ install_dir}}/bin/{{ python_versions.python3.pip_link }}"
+  register: pip3_version
+
+- name: get pip
+  get_url: 
+    url: "{{ pip_url }}"
+    dest: "{{ temp_dir }}"
+  when: not pip2_version.stat.exists or not pip3_version.stat.exists
+
+- name: Install pip for python2.7
+  shell: "{{ install_dir }}/bin/{{ python_versions.python2.version }} {{ temp_dir }}/get-pip.py"
+  when: not pip2_version.stat.exists
+
+- name: Create symlink to pip3 versions
+  file:
+    src: "{{ install_dir }}/bin/pip{{ item.value.version }}"
+    dest: "/usr/bin/{{ item.value.pip_link }}"
+    owner: root
+    group: root
+    state: link
+  when: not {{ item.value.pip_name }}_version.stat.exists
+  with_dict:
+    - "{{ python_versions.python3 }}"
+

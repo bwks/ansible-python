@@ -1,5 +1,7 @@
 ---
 # vars file for ansible-python
+temp_dir: "/tmp"
+
 working_dir: "/usr/src"
 
 install_dir: "/usr/local"
@@ -7,11 +9,22 @@ install_dir: "/usr/local"
 pip_url: "https://bootstrap.pypa.io/get-pip.py"
 
 python_versions:
-  - version: 3.6
+  python3:
+    version: 3.6
     release: 3.6.2
     py_link: python3.6
     pip_link: pip3.6
-  - version: 2.7
+    pip_name: pip3
+
+  python2:
+    version: 2.7
     release: 2.7.13 
     py_link: python2.7 
     pip_link: pip2.7
+    pip_name: pip2
+
+py2_version: "{{ python_versions.python2.relase }}"
+py3_version: "{{ python_versions.python3.relase }}"
+
+pip2_version: "{{ python_versions.python2.pip_link }}"
+pip3_version: "{{ python_versions.python3.pip_link }}"

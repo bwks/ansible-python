@@ -2,7 +2,7 @@
 # vars file for ansible-python
 temp_dir: "/tmp"
 
-working_dir: "/usr/src"
+working_dir: "/tmp"
 
 install_dir: "/usr/local"
 

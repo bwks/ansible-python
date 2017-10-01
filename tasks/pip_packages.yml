@@ -1,6 +1,6 @@
 - name: Install PIP2 packages
   pip:
-    executable: "{{ python_packages.python2.pip_name }}"
+    executable: "{{ python_versions.python2.pip_name }}"
     name: "{{ item }}"
     state: latest
   with_items: 
@@ -8,7 +8,7 @@
 
 - name: Install PIP3 packages
   pip:
-    executable: "{{ python_packages.python3.pip_name }}"
+    executable: "{{ python_versions.python3.pip_name }}"
     name: "{{ item }}"
     state: latest
   with_items: 

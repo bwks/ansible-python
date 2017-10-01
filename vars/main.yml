@@ -8,6 +8,10 @@ install_dir: "/usr/local"
 
 pip_url: "https://bootstrap.pypa.io/get-pip.py"
 
+default_pip_packages:
+  - "pip"
+  - "setuptools"
+
 python_versions:
   python3:
     version: 3.6
@@ -25,8 +29,3 @@ python_versions:
     pip_link: pip2.7
     pip_name: pip2
 
-py2_version: "{{ python_versions.python2.relase }}"
-py3_version: "{{ python_versions.python3.relase }}"
-
-pip2_version: "{{ python_versions.python2.pip_link }}"
-pip3_version: "{{ python_versions.python3.pip_link }}"

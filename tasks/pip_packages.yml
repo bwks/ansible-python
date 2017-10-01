@@ -1,9 +1,16 @@
-- name: Install PIP packages
+- name: Install PIP2 packages
   pip:
-    executable: "{{ item.value.pip_name }}"
+    executable: "{{ python_packages.python2.pip_name }}"
     name: "{{ item }}"
     state: latest
-  with_items:
-    - "pip"
-    - "setuptools"
-  with_dict: "{{ python_versions }}"
+  with_items: 
+    - "{{ default_pip_packages }}"
+
+- name: Install PIP3 packages
+  pip:
+    executable: "{{ python_packages.python3.pip_name }}"
+    name: "{{ item }}"
+    state: latest
+  with_items: 
+    - "{{ default_pip_packages }}"
+

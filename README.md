@@ -6,11 +6,11 @@ Ansible role to install python 2/3
 Requirements
 ------------
 
-Ansible >= 2.1
+Tested on ansible 2.2. Should be fine for >= 2.1
 
 Role Variables
 --------------
-
+```yaml
 temp_dir: "/tmp"
 
 working_dir: "/tmp"
@@ -39,7 +39,7 @@ python_versions:
     py_name: python2 
     pip_link: pip2.7
     pip_name: pip2
-
+```
 
 Dependencies
 ------------
@@ -49,12 +49,14 @@ None
 Example Playbook
 ----------------
 
+```yaml
 ---
 - name: Build Python
   hosts: somehost
   become: True
   roles:
     - { role: ansible-python }
+```
 
 License
 -------

@@ -2,6 +2,9 @@
 # tasks file for ansible-python
 
 - include: yum-dependancies.yml
+  when: ansible_os_family == 'Redhat'
+- include: apt-dependencies.yml
+  when: ansible_os_family == 'Debian'
 - include: install-python.yml
 - include: install-pip.yml
 - include: pip-packages.yml 
